@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_master/features/splash/ui/splash_screen.dart';
+import 'package:task_master/widgets/theme/theme.dart';
 
 class ApplicationClass extends StatelessWidget {
   const ApplicationClass({super.key});
@@ -9,9 +10,7 @@ class ApplicationClass extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      theme: TMAppTheme.darkTheme,
       home: const SplashScreen(),
     );
   }
