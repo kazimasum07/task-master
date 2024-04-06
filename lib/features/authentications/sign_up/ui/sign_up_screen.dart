@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       CircleAvatar(
                         radius: 48,
                         backgroundImage: FileImage(images['profile_picture']!),
-                        child: const Icon(CupertinoIcons.camera,color: TMCustomColors.whiteColor,size: TMSizes.lg,),
+                        child: const Icon(CupertinoIcons.camera,color: TMCustomColors.transparentColor,size: TMSizes.lg),
                       ):CircleAvatar(
                         radius: 48,
                         backgroundColor: TMCustomColors.hintLevelTextColor.withOpacity(0.3),
@@ -235,14 +235,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: size.height*0.02,),
                 isLoading == true?
-                const Center(child: CircularProgressIndicator(color: TMCustomColors.primaryColor,)) :
+                const Center(child: Padding(
+                  padding: EdgeInsets.only(bottom: TMSizes.lg),
+                  child: CircularProgressIndicator(color: TMCustomColors.primaryColor,),
+                )) :
                 GestureDetector(
                   onTap: ()async{
-                    await signUp(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        userName: fullNameController.text
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      await signUp(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          userName: fullNameController.text
+                      );
+                    }
                   },
                   child: Container(
                     width: size.width*1,
