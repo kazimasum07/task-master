@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_master/features/onboarding/onboarding_dashbord.dart';
+import 'package:task_master/features/authentications/login/ui/login_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/images.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
@@ -43,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             GestureDetector(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const OnBoardingDashboard()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const LoginScreen()));
               },
               child: Container(
                 width: size.width*1,

@@ -69,6 +69,18 @@ class TMCustomTextStyle{
       color: TMCustomColors.whiteColor,
       fontWeight: FontWeight.w400
   );
+
+  static TextStyle textStyle = const TextStyle(
+      fontSize: 16,
+      color: TMCustomColors.whiteColor,
+      fontWeight: FontWeight.w400
+  );
+
+  static TextStyle hintTextStyle = const TextStyle(
+      fontSize: 16,
+      color: TMCustomColors.hintLevelTextColor,
+      fontWeight: FontWeight.w400
+  );
 }
 
 // Color textClrLight=const Color(0xffF8F8F8);

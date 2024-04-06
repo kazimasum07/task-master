@@ -30,4 +30,5 @@ class TMCustomColors{
 
   //text
   static const Color headerTextColor =Color(0xFFE4E4E6);
+  static const Color hintLevelTextColor =Color(0xFF8A8A8E);
 }
