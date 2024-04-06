@@ -197,6 +197,21 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  // Future<void> signInWithEmailAndPassword(String email, String password) async {
+  //   try {
+  //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //     // Sign-in successful, user is now signed in
+  //     User? user = userCredential.user;
+  //     print('User signed in: ------------>${user!.uid}');
+  //   } catch (e) {
+  //     // Handle sign-in errors
+  //     print('Error signing in: ------------>$e');
+  //   }
+  // }
+
   initialization(){
     emailController = TextEditingController();
     passwordController = TextEditingController();

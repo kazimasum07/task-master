@@ -2,7 +2,11 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:task_master/features/authentications/login/ui/login_screen.dart';
@@ -22,9 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController passwordController;
   late TextEditingController fullNameController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-
-  bool isLoadingV2 = false;
+  bool isLoading = false;
   Map<String, File?> images = {
     "profile_picture": null,
   };
@@ -232,8 +234,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 SizedBox(height: size.height*0.02,),
+                isLoading == true?
+                const Center(child: CircularProgressIndicator(color: TMCustomColors.primaryColor,)) :
                 GestureDetector(
-                  onTap: (){
+                  onTap: ()async{
+                    await signUp(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        userName: fullNameController.text
+                    );
                   },
                   child: Container(
                     width: size.width*1,
@@ -243,7 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: TMCustomColors.primaryColor,
                         borderRadius: BorderRadius.circular(TMSizes.buttonRadius)
                     ),
-                    child: Center(child: Text("Continue",style: TMCustomTextStyle.buttonTextStyle)),
+                    child: Center(child: Text("Sign Up",style: TMCustomTextStyle.buttonTextStyle)),
                   ),
                 )
               ],
@@ -253,38 +262,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
-  // Future<void> getImageFromCamera(String type) async {
-  //   final ImagePicker picker = ImagePicker();
-  //   final photoPicker = await picker.pickImage(
-  //     source: ImageSource.camera,
-  //     maxWidth: 1800,
-  //     maxHeight: 1800,
-  //   );
-  //
-  //   if (photoPicker != null) {
-  //     String fileName = photoPicker.path.split('/').last;
-  //     setState(() {
-  //       images[type] = photoPicker;
-  //     });
-  //   }
-  // }
-
-  // Future<void> getImageFromGallery(String type) async {
-  //   final ImagePicker picker = ImagePicker();
-  //   final photoPicker = await picker.pickImage(
-  //     source: ImageSource.gallery,
-  //     maxWidth: 1800,
-  //     maxHeight: 1800,
-  //   );
-  //
-  //   if (photoPicker != null) {
-  //     String fileName = photoPicker.path.split('/').last;
-  //     setState(() {
-  //       images[type] = photoPicker;
-  //     });
-  //   }
-  // }
 
   Future<void> getImageFromGallery(String type) async {
     final ImagePicker picker = ImagePicker();
@@ -377,6 +354,90 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+
+  Future<String?> uploadImage(File imageFile,{String ?userID}) async {
+    try {
+      Reference storageReference = FirebaseStorage.instance.ref().child('user_images/$userID/${DateTime.now().millisecondsSinceEpoch}-${imageFile.path.split("/").last}');
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadURL = await snapshot.ref.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error : $e");
+      }
+      return null;
+    }
+  }
+
+  signUp({
+    required String email,
+    required String password,
+    required String userName
+  })async{
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      String userID = credential.user!.uid;
+      String ?profilePicture = await uploadImage(images['profile_picture']!,userID: userID);
+      await addUser(
+          email: email,
+          imageUrl: profilePicture,
+          userName: userName,
+          doc: userID
+      );
+      setState(() {
+        isLoading = false;
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        if (kDebugMode) {
+          print('The password provided is too weak.');
+        }
+      } else if (e.code == 'email-already-in-use') {
+        if (kDebugMode) {
+          print('The account already exists for that email.');
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e,subTrace) {
+      if (kDebugMode) {
+        print("Error while signup : ------>$e and $subTrace");
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  addUser({
+    String ?userName,
+    String ?email,
+    String ?imageUrl,
+    String ?doc,
+  })async{
+    var users = FirebaseFirestore.instance.collection("users").doc(doc).set({
+      'user_name': userName, // John Doe
+      'email': email,
+      'profile_picture' : imageUrl
+    }).catchError((error) { if (kDebugMode) {
+        print("Failed to add user------->: $error");
+      }});
+    users.then((value) {
+      if (kDebugMode) {
+        print("User created");
+      }
+    });
+
+}
+
 
   initialization(){
     emailController = TextEditingController();
