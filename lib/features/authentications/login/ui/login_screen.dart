@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_master/features/authentications/providers/authentication_provider.dart';
 import 'package:task_master/features/authentications/sign_up/ui/sign_up_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
@@ -21,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final authProvider = Provider.of<AuthenticationProviders>(context);
     return Scaffold(
       body: GestureDetector(
         onTap: (){
@@ -167,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: size.height*0.02,),
-              isLoading == true?
+              authProvider.isLoading == true?
               const Center(child: Padding(
                 padding: EdgeInsets.only(bottom: TMSizes.defaultSpace),
                 child: CircularProgressIndicator(color: TMCustomColors.primaryColor,),
@@ -175,7 +177,8 @@ class _LoginScreenState extends State<LoginScreen> {
               GestureDetector(
                 onTap: ()async{
                   if (_formKey.currentState!.validate()) {
-                    await signIn(emailController.text, passwordController.text);
+                    await Provider.of<AuthenticationProviders>(context,listen: false)
+                        .signIn(context: context,email: emailController.text,password: passwordController.text);
                   }
                 },
                 child: Container(
@@ -207,34 +210,42 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> signIn(String email, String password) async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      setState(() {
-        isLoading = false;
-      });
-      if(userCredential.user != null){
-        //print("print login done");
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }else if (e.code == 'invalid-credential') {
-        print('Wrong password provided for that user.');
-      }
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
+  // Future<void> signIn(String email, String password) async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   try {
+  //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     if(userCredential.user != null){
+  //       //print("print login done");
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       print('No user found for that email.');
+  //     } else if (e.code == 'wrong-password') {
+  //       print('Wrong password provided for that user.');
+  //     }else if (e.code == 'invalid-credential') {
+  //       if (context.mounted) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             content: Text('Invalid email or password'),
+  //             backgroundColor: Colors.red,
+  //           ),
+  //         );
+  //       }
+  //       print('Wrong password provided for that user.');
+  //     }
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
 
   initialization(){
     emailController = TextEditingController();
