@@ -14,7 +14,7 @@ class TMElevatedButtonTheme{
     disabledBackgroundColor: TMCustomColors.elevatedButtonDisabledBackgroundColor,
     disabledForegroundColor: TMCustomColors.elevatedButtonDisabledForegroundColor,
     side: const BorderSide(color: TMCustomColors.elevatedButtonSideColor),
-    padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 20),
+    padding: const EdgeInsets.symmetric(vertical: 08,horizontal: 16),
     textStyle: TMCustomTextStyle.elevatedButtonTextStyle,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
     )
@@ -27,7 +27,7 @@ class TMElevatedButtonTheme{
     disabledBackgroundColor: TMCustomColors.elevatedButtonDisabledBackgroundColor,
     disabledForegroundColor: TMCustomColors.elevatedButtonDisabledForegroundColor,
     side: const BorderSide(color: TMCustomColors.elevatedButtonSideColor),
-    padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 20),
+    padding: const EdgeInsets.symmetric(vertical: 08,horizontal: 16),
     textStyle: TMCustomTextStyle.elevatedButtonTextStyle,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
     )

@@ -17,10 +17,15 @@ class TMCustomTextStyle{
       fontWeight: FontWeight.w700
   );
 
+  static TextStyle header =  const TextStyle(
+      fontSize: TMSizes.fontSizeXl,
+      color: TMCustomColors.headerTextColor,
+      fontWeight: FontWeight.w500
+  );
   static TextStyle subHeader =  const TextStyle(
       fontSize: TMSizes.fontSizeLg,
       color: TMCustomColors.headerTextColor,
-      fontWeight: FontWeight.w400
+      fontWeight: FontWeight.w500
   );
 
   static TextStyle buttonTextStyle = const TextStyle(

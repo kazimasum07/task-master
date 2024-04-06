@@ -12,7 +12,7 @@ class TMOutlineButtonTheme{
       foregroundColor: TMCustomColors.blackColor,
       side: const BorderSide(color: TMCustomColors.blueColor),
       textStyle: TMCustomTextStyle.outlineButtonTextStyleLight,
-      padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 08,horizontal: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28))
     )
   );
@@ -22,7 +22,7 @@ class TMOutlineButtonTheme{
           foregroundColor: TMCustomColors.whiteColor,
           side: const BorderSide(color: TMCustomColors.blueAccentColor),
           textStyle: TMCustomTextStyle.outlineButtonTextStyleLight,
-          padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 08,horizontal: 16),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28))
       )
   );
