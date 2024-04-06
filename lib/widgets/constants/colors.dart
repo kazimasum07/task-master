@@ -4,6 +4,7 @@ class TMCustomColors{
   TMCustomColors._();
   static const Color primaryColor =Colors.blue;
   static const Color backgroundColor =Color(0xFF191A22);
+  static const Color lightGreyColor =Color(0xFF8A8A8E);
   static const Color blueColor =Colors.blue;
   static const Color blueAccentColor =Colors.blueAccent;
   static const Color blackColor =Colors.black;

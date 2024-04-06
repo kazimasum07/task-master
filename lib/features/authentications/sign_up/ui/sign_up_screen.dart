@@ -1,5 +1,10 @@
+
+
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:task_master/features/authentications/login/ui/login_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
@@ -17,6 +22,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController passwordController;
   late TextEditingController fullNameController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+  bool isLoadingV2 = false;
+  Map<String, File?> images = {
+    "profile_picture": null,
+  };
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -47,9 +58,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: Text("Sign In",style: TMCustomTextStyle.buttonTextStyle,)
                         )
                       ],),
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundColor: TMCustomColors.hintLevelTextColor.withOpacity(0.3),
+                    GestureDetector(
+                      onTap: ()async{
+                       await imageTakerDialog(size, "profile_picture");
+                      },
+                      child:
+                      images['profile_picture']!=null?
+                      CircleAvatar(
+                        radius: 48,
+                        backgroundImage: FileImage(images['profile_picture']!),
+                        child: const Icon(CupertinoIcons.camera,color: TMCustomColors.whiteColor,size: TMSizes.lg,),
+                      ):CircleAvatar(
+                        radius: 48,
+                        backgroundColor: TMCustomColors.hintLevelTextColor.withOpacity(0.3),
+                        child: const Icon(CupertinoIcons.camera,color: TMCustomColors.whiteColor,size: TMSizes.lg,),
+                      ),
                     )
                   ],
                 ),
@@ -230,6 +253,119 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+
+  // Future<void> getImageFromCamera(String type) async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final photoPicker = await picker.pickImage(
+  //     source: ImageSource.camera,
+  //     maxWidth: 1800,
+  //     maxHeight: 1800,
+  //   );
+  //
+  //   if (photoPicker != null) {
+  //     String fileName = photoPicker.path.split('/').last;
+  //     setState(() {
+  //       images[type] = photoPicker;
+  //     });
+  //   }
+  // }
+
+  // Future<void> getImageFromGallery(String type) async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final photoPicker = await picker.pickImage(
+  //     source: ImageSource.gallery,
+  //     maxWidth: 1800,
+  //     maxHeight: 1800,
+  //   );
+  //
+  //   if (photoPicker != null) {
+  //     String fileName = photoPicker.path.split('/').last;
+  //     setState(() {
+  //       images[type] = photoPicker;
+  //     });
+  //   }
+  // }
+
+  Future<void> getImageFromGallery(String type) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? photoPicker = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+
+    if (photoPicker != null) {
+      final File imageFile = File(photoPicker.path);
+      setState(() {
+        images[type] = imageFile;
+      });
+    }
+  }
+  Future<void> getImageFromCamera(String type) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? photoPicker = await picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+
+    if (photoPicker != null) {
+      final File imageFile = File(photoPicker.path);
+      setState(() {
+        images[type] = imageFile;
+      });
+    }
+  }
+  imageTakerDialog(Size size, String image) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: TMCustomColors.backgroundColor.withOpacity(0.8),
+          title: Center(child: Text("Select a method",style: TMCustomTextStyle.textStyle)),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    getImageFromCamera(image);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 55,
+                    width: 55,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: TMCustomColors.whiteColor)
+                    ),
+                    child: const Icon(CupertinoIcons.camera,size: 30,),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    getImageFromGallery(image);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 55,
+                    width: 55,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: TMCustomColors.whiteColor)
+                    ),
+                    child: const Icon(Icons.photo,size: 35,),
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+
+      },
+    );
+  }
+
 
   OutlineInputBorder buildOutlineInputBorder() {
     return OutlineInputBorder(
