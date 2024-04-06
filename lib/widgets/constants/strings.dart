@@ -1,6 +1,10 @@
 class TMStrings{
 
   TMStrings._();
+  //
+  static const String appTitle = "Task Master";
+
+  //response
   static const String m500 = "Server is not responding";
   static const String m401 = "Session expired";
   static const String m400 = "Something went wrong";

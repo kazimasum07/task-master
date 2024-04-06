@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_master/widgets/constants/sizes.dart';
 
 import 'colors.dart';
 
@@ -10,6 +11,23 @@ import 'colors.dart';
 class TMCustomTextStyle{
   TMCustomTextStyle._();
 
+  static TextStyle splashHeader =  const TextStyle(
+      fontSize: 36.0,
+      color: TMCustomColors.headerTextColor,
+      fontWeight: FontWeight.w700
+  );
+
+  static TextStyle subHeader =  const TextStyle(
+      fontSize: TMSizes.fontSizeLg,
+      color: TMCustomColors.headerTextColor,
+      fontWeight: FontWeight.w400
+  );
+
+  static TextStyle buttonTextStyle = const TextStyle(
+      fontSize: 16,
+      color: TMCustomColors.whiteColor,
+      fontWeight: FontWeight.w500
+  );
   static TextStyle elevatedButtonTextStyle = const TextStyle(
       fontSize: 16,
       color: TMCustomColors.elevatedButtonTextColor,

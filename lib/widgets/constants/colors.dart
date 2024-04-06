@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TMCustomColors{
   TMCustomColors._();
   static const Color primaryColor =Colors.blue;
+  static const Color backgroundColor =Color(0xFF191A22);
   static const Color blueColor =Colors.blue;
   static const Color blueAccentColor =Colors.blueAccent;
   static const Color blackColor =Colors.black;
@@ -27,4 +28,6 @@ class TMCustomColors{
   static Color appBarTextColorDark = Colors.white;
   static Color appBarTextColorLight = Colors.black;
 
+  //text
+  static const Color headerTextColor =Color(0xFFE4E4E6);
 }
