@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/features/authentications/sign_up/ui/sign_up_screen.dart';
@@ -16,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -165,8 +167,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: size.height*0.02,),
+              isLoading == true?
+              const Center(child: Padding(
+                padding: EdgeInsets.only(bottom: TMSizes.defaultSpace),
+                child: CircularProgressIndicator(color: TMCustomColors.primaryColor,),
+              )):
               GestureDetector(
-                onTap: (){
+                onTap: ()async{
+                  if (_formKey.currentState!.validate()) {
+                    await signIn(emailController.text, passwordController.text);
+                  }
                 },
                 child: Container(
                   width: size.width*1,
@@ -197,20 +207,34 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Future<void> signInWithEmailAndPassword(String email, String password) async {
-  //   try {
-  //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //     // Sign-in successful, user is now signed in
-  //     User? user = userCredential.user;
-  //     print('User signed in: ------------>${user!.uid}');
-  //   } catch (e) {
-  //     // Handle sign-in errors
-  //     print('Error signing in: ------------>$e');
-  //   }
-  // }
+  Future<void> signIn(String email, String password) async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      setState(() {
+        isLoading = false;
+      });
+      if(userCredential.user != null){
+        //print("print login done");
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }else if (e.code == 'invalid-credential') {
+        print('Wrong password provided for that user.');
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   initialization(){
     emailController = TextEditingController();
