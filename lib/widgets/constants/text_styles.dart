@@ -81,6 +81,18 @@ class TMCustomTextStyle{
       color: TMCustomColors.hintLevelTextColor,
       fontWeight: FontWeight.w400
   );
+
+  static TextStyle selectedNavTextStyle = const TextStyle(
+      fontSize: 14,
+      color: TMCustomColors.whiteColor,
+      fontWeight: FontWeight.w400
+  );
+
+  static TextStyle navTextStyle = const TextStyle(
+      fontSize: 12,
+      color: TMCustomColors.hintLevelTextColor,
+      fontWeight: FontWeight.w400
+  );
 }
 
 // Color textClrLight=const Color(0xffF8F8F8);
