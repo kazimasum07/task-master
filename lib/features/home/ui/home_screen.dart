@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_master/features/tasks/ui/task_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
 import 'package:task_master/widgets/constants/text_styles.dart';
@@ -93,6 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SizedBox(
         height: size.height*1,
         width: size.width*1,
+        child:
+        selectedIndex == 1?
+        TaskScreen() : SizedBox.shrink()
+        ,
       ),
     );
   }

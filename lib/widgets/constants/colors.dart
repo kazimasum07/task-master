@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class TMCustomColors{
   TMCustomColors._();
   static const Color primaryColor =Colors.blue;
-  static const Color backgroundColor =Color(0xFF191A22);
+  static const Color backgroundColor =Colors.black;
+  static  Color boxColor =Colors.grey.withOpacity(0.2);
   static const Color lightGreyColor =Color(0xFF8A8A8E);
+  static  Color navbarColor = boxColor;
   static const Color blueColor =Colors.blue;
   static const Color blueAccentColor =Colors.blueAccent;
   static const Color blackColor =CupertinoColors.activeGreen;
@@ -15,6 +17,7 @@ class TMCustomColors{
   static const Color redColor =Colors.red;
   static const Color orangeColor =Colors.orange;
   static const Color whiteColor =Colors.white;
+  static const Color iconColor =Colors.white;
   static const Color transparentColor =Colors.transparent;
 
   ///Elevated Button
