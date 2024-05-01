@@ -13,7 +13,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late TextEditingController taskTitleController;
   int selectedIndex = 1;
+
   _onTap(int index){
     setState(() {
       selectedIndex = index;
@@ -59,14 +61,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            const CircleAvatar(
-              radius: 24,
-              backgroundColor: TMCustomColors.primaryColor,
-              child: Icon(CupertinoIcons.add,size: TMSizes.iconMd,),
+            GestureDetector(
+              onTap: (){
+                addTaskSheet(context, size);
+              },
+              child: const CircleAvatar(
+                radius: 24,
+                backgroundColor: TMCustomColors.primaryColor,
+                child: Icon(CupertinoIcons.add,size: TMSizes.iconMd,),
+              ),
             ),
             GestureDetector(
               onTap: (){
-                _onTap(4);
+
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -96,9 +103,129 @@ class _HomeScreenState extends State<HomeScreen> {
         width: size.width*1,
         child:
         selectedIndex == 1?
-        TaskScreen() : SizedBox.shrink()
+        const TaskScreen() : const SizedBox.shrink()
         ,
       ),
     );
+  }
+
+  void addTaskSheet(BuildContext context, Size size) {
+    showModalBottomSheet(
+      backgroundColor: TMCustomColors.bottomSheetColor,
+        isScrollControlled: true,
+        context: context,
+        builder: (_)=>GestureDetector(
+          onTap: (){
+            FocusScope.of(context).unfocus();
+          },
+          child: Container(
+            height: size.height*0.7,
+            padding: const EdgeInsets.symmetric(horizontal: TMSizes.sm),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Add new task",style: TMCustomTextStyle.textStyle,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                        child: const Icon(Icons.cancel_outlined)
+                    )
+                  ],
+                ),
+                const SizedBox(height: TMSizes.spaceHeightSm,),
+                TextFormField(
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                  controller: taskTitleController,
+                  style: TMCustomTextStyle.textStyle,
+                  cursorColor: TMCustomColors.primaryColor,
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: TMCustomColors.bottomSheetColor,
+                      contentPadding: const EdgeInsets.all(16.0),
+                      prefixIcon:  const Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Icon(CupertinoIcons.news,
+                            color: TMCustomColors.whiteColor),
+                      ),
+                      hintText: "Enter task title",
+                      hintStyle: const TextStyle(color: TMCustomColors.whiteColor),
+                      border: InputBorder.none,
+                      focusedBorder: buildOutlineInputBorder(),
+                      enabledBorder: buildOutlineInputBorder(),
+                      disabledBorder: buildOutlineInputBorder(),
+                      errorBorder: buildOutlineInputBorder(),
+                      focusedErrorBorder: buildOutlineInputBorder()
+                  ),
+                  validator: (value) {
+                    // Email validation logic here
+                    if (value!.isEmpty) {
+                      return 'Please enter task title';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                const SizedBox(height: TMSizes.spaceHeightSm,),
+                Text("Assigned To",style: TMCustomTextStyle.textStyle,),
+                const SizedBox(height: TMSizes.spaceHeightSm,),
+                Container(
+                  width: size.width*1,
+                  padding: const EdgeInsets.symmetric(horizontal: TMSizes.md,vertical: TMSizes.md),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: TMCustomColors.whiteColor,width: 0.5)
+                  ),
+                  child: Center(child: Text("Select To",style: TMCustomTextStyle.textStyle,)),
+                ),
+                const SizedBox(height: TMSizes.spaceHeightSm,),
+                Text("Progress",style: TMCustomTextStyle.textStyle,),
+                const SizedBox(height: TMSizes.spaceHeightSm,),
+                Container(
+                  width: size.width*1,
+                  padding: const EdgeInsets.symmetric(horizontal: TMSizes.md,vertical: TMSizes.md),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: TMCustomColors.whiteColor,width: 0.5)
+                  ),
+                  child: Center(child: Text("In Progress",style: TMCustomTextStyle.textStyle,)),
+                ),
+                const SizedBox(height: TMSizes.spaceHeightSm,),
+
+              ],
+            ),
+          ),
+        )
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderRadius:
+      BorderRadius.circular(30),
+      borderSide:  const BorderSide(
+        color: TMCustomColors.whiteColor,
+        width: 0.5,
+      ),
+    );
+  }
+
+  initialiseController(){
+    taskTitleController = TextEditingController();
+  }
+
+  taskMaster()async{
+    initialiseController();
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    taskMaster();
   }
 }

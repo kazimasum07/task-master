@@ -7,6 +7,7 @@ class TMCustomColors{
   static const Color backgroundColor =Colors.black;
   static  Color boxColor =Colors.grey.withOpacity(0.2);
   static const Color lightGreyColor =Color(0xFF8A8A8E);
+  static const Color bottomSheetColor =Color(0xFF8A8A8E);
   static  Color navbarColor = boxColor;
   static const Color blueColor =Colors.blue;
   static const Color blueAccentColor =Colors.blueAccent;

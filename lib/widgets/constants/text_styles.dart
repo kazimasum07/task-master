@@ -75,8 +75,18 @@ class TMCustomTextStyle{
       color: TMCustomColors.whiteColor,
       fontWeight: FontWeight.w400
   );
+  static TextStyle textStyle14 = const TextStyle(
+      fontSize: 14,
+      color: TMCustomColors.whiteColor,
+      fontWeight: FontWeight.w400
+  );
 
   static TextStyle hintTextStyle = const TextStyle(
+      fontSize: 16,
+      color: TMCustomColors.hintLevelTextColor,
+      fontWeight: FontWeight.w400
+  );
+  static TextStyle hintTextStyleWhite = const TextStyle(
       fontSize: 16,
       color: TMCustomColors.hintLevelTextColor,
       fontWeight: FontWeight.w400
