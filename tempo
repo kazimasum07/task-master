@@ -1,0 +1,162 @@
+import 'package:flutter/material.dart';
+import 'package:uch_driver_application/temp_files/home_page.dart';
+import 'package:uch_driver_application/temp_files/settings_screen.dart';
+import 'package:uch_driver_application/temp_files/tv_show_screen.dart';
+import 'package:uch_driver_application/temp_files/watching_list_screen.dart';
+
+class MainHomeScreen extends StatefulWidget {
+  MainHomeScreen({super.key,  required this.currentIndex});
+  int currentIndex =0;
+  static const navigation = <NavigationDestination>[
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Home',
+    ),
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.account_balance_wallet,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.computer,
+        color: Colors.white,
+      ),
+      label: 'Tv Show',
+    ),
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.warning,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.remove_red_eye,
+        color: Colors.white,
+      ),
+      label: 'WatchList',
+    ),
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.sports_soccer,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.settings,
+        color: Colors.white,
+      ),
+      label: 'Settings',
+    ),
+  ];
+
+  @override
+  State<MainHomeScreen> createState() => _MainHomeScreenState();
+}
+
+class _MainHomeScreenState extends State<MainHomeScreen> {
+
+  int drawerIndex =0;
+
+  final page = [
+    const HomePage(),
+    const TvShowScreen(),
+    const WatchListScreen(),
+    const SettingScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      appBar: AppBar(
+        title: Text(MainHomeScreen.navigation[widget.currentIndex].label),
+
+      ),
+      drawer: NavigationDrawer(
+        selectedIndex: drawerIndex,
+        onDestinationSelected: (int drawerI){
+          print(widget.currentIndex);
+          setState(() {
+            drawerIndex = drawerI;
+            Navigator.pop(context);
+          });
+        },
+
+        backgroundColor: Colors.blueGrey,
+        children: const [
+          DrawerHeader(child: CircleAvatar(backgroundColor: Colors.white,)),
+
+          ListTile(
+            dense: true,
+            title: Text(
+              "Switch Screen",
+              style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+
+          NavigationDrawerDestination(
+            selectedIcon: Icon(
+              Icons.home,
+              color: Colors.green,
+            ),
+            icon: Icon(
+              Icons.home_outlined,
+              color: Colors.white,
+            ),
+            label: Text('Home'),
+          ),
+
+          NavigationDrawerDestination(
+            selectedIcon: Icon(
+              Icons.account_balance_wallet,
+              color: Colors.green,
+            ),
+            icon: Icon(
+              Icons.computer,
+              color: Colors.white,
+            ),
+            label: Text('Tv Show'),
+          ),
+
+          NavigationDrawerDestination(
+            selectedIcon: Icon(
+              Icons.warning,
+              color: Colors.green,
+            ),
+            icon: Icon(
+              Icons.remove_red_eye,
+              color: Colors.white,
+            ),
+            label: Text('WatchList'),
+          ),
+
+          NavigationDrawerDestination(
+            selectedIcon: Icon(
+              Icons.sports_soccer,
+              color: Colors.green,
+            ),
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            label:Text( 'Settings'),
+          ),
+
+        ],),
+      body: page[drawerIndex],
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+}
