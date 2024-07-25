@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:uch_driver_application/temp_files/home_page.dart';
-import 'package:uch_driver_application/temp_files/settings_screen.dart';
-import 'package:uch_driver_application/temp_files/tv_show_screen.dart';
-import 'package:uch_driver_application/temp_files/watching_list_screen.dart';
+import 'package:uch_driver_application/features/documents/documents_dashboard/ui/documents_dashboard.dart';
+import 'package:uch_driver_application/features/earnings/dashboard/ui/earnings_dashboard.dart';
+import 'package:uch_driver_application/features/home/ui/home_screen.dart';
+import 'package:uch_driver_application/features/ongoing_trip/ui/ongoing_trip_screen.dart';
+import 'package:uch_driver_application/features/refer_code/ui/refer_code_screen.dart';
+import 'package:uch_driver_application/features/settings/settings_dashboard/ui/settings_dashboard.dart';
+import 'package:uch_driver_application/features/trips/trips_dashboard/ui/trips_dashboard.dart';
+import 'package:uch_driver_application/features/wallet/wallet_dashboard/ui/wallet_dashboard.dart';
 
-class MainHomeScreen extends StatefulWidget {
-  MainHomeScreen({super.key,  required this.currentIndex});
-  int currentIndex =0;
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+  final int currentIndex =0;
   static const navigation = <NavigationDestination>[
     NavigationDestination(
       selectedIcon: Icon(
@@ -19,144 +23,258 @@ class MainHomeScreen extends StatefulWidget {
       ),
       label: 'Home',
     ),
+
     NavigationDestination(
       selectedIcon: Icon(
-        Icons.account_balance_wallet,
+        Icons.home,
         color: Colors.green,
       ),
       icon: Icon(
-        Icons.computer,
+        Icons.home_outlined,
         color: Colors.white,
       ),
-      label: 'Tv Show',
+      label: 'Trips',
     ),
+
     NavigationDestination(
       selectedIcon: Icon(
-        Icons.warning,
+        Icons.home,
         color: Colors.green,
       ),
       icon: Icon(
-        Icons.remove_red_eye,
+        Icons.home_outlined,
         color: Colors.white,
       ),
-      label: 'WatchList',
+      label: 'Ongoing Trip',
     ),
+
     NavigationDestination(
       selectedIcon: Icon(
-        Icons.sports_soccer,
+        Icons.home,
         color: Colors.green,
       ),
       icon: Icon(
-        Icons.settings,
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Earnings',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Wallet',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Documents',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Refer & Earn',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
         color: Colors.white,
       ),
       label: 'Settings',
     ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Logout',
+    ),
+
   ];
 
   @override
-  State<MainHomeScreen> createState() => _MainHomeScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _MainHomeScreenState extends State<MainHomeScreen> {
+class _DashboardScreenState extends State<DashboardScreen> {
 
   int drawerIndex =0;
 
-  final page = [
-    const HomePage(),
-    const TvShowScreen(),
-    const WatchListScreen(),
-    const SettingScreen(),
+  final screens = [
+    const HomeScreen(),
+    const OnGoingTripScreen(),
+    const TripsDashboardScreen(),
+    const EarningsDashboardScreen(),
+    const WalletDashboardScreen(),
+    const DocumentsDashboard(),
+    const ReferCodeScreen(),
+    const SettingsDashboardScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        title: Text(MainHomeScreen.navigation[widget.currentIndex].label),
-
+        title: Text(DashboardScreen.navigation[widget.currentIndex].label),
       ),
+      body: screens[drawerIndex],
       drawer: NavigationDrawer(
-        selectedIndex: drawerIndex,
-        onDestinationSelected: (int drawerI){
-          print(widget.currentIndex);
-          setState(() {
-            drawerIndex = drawerI;
-            Navigator.pop(context);
-          });
-        },
+          selectedIndex: drawerIndex,
+          onDestinationSelected: (int index){
+            setState(() {
+              drawerIndex = index;
+              Navigator.of(context).pop();
+            });
+          },
+          children: const [
+            DrawerHeader(child: CircleAvatar(backgroundColor: Colors.white,)),
 
-        backgroundColor: Colors.blueGrey,
-        children: const [
-          DrawerHeader(child: CircleAvatar(backgroundColor: Colors.white,)),
+            ListTile(
+              dense: true,
+              title: Text(
+                "Main",
+              ),
+            ),
 
-          ListTile(
-            dense: true,
-            title: Text(
-              "Switch Screen",
-              style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500),
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Home'),
             ),
-          ),
 
-          NavigationDrawerDestination(
-            selectedIcon: Icon(
-              Icons.home,
-              color: Colors.green,
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Trips'),
             ),
-            icon: Icon(
-              Icons.home_outlined,
-              color: Colors.white,
-            ),
-            label: Text('Home'),
-          ),
 
-          NavigationDrawerDestination(
-            selectedIcon: Icon(
-              Icons.account_balance_wallet,
-              color: Colors.green,
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Ongoing Trip'),
             ),
-            icon: Icon(
-              Icons.computer,
-              color: Colors.white,
-            ),
-            label: Text('Tv Show'),
-          ),
 
-          NavigationDrawerDestination(
-            selectedIcon: Icon(
-              Icons.warning,
-              color: Colors.green,
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Earnings'),
             ),
-            icon: Icon(
-              Icons.remove_red_eye,
-              color: Colors.white,
-            ),
-            label: Text('WatchList'),
-          ),
 
-          NavigationDrawerDestination(
-            selectedIcon: Icon(
-              Icons.sports_soccer,
-              color: Colors.green,
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Wallet'),
             ),
-            icon: Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-            label:Text( 'Settings'),
-          ),
 
-        ],),
-      body: page[drawerIndex],
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Documents'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Refer & Earn'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Settings'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Logout'),
+            ),
+          ]
+      ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }
