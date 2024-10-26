@@ -1,0 +1,280 @@
+import 'package:flutter/material.dart';
+import 'package:uch_driver_application/features/documents/documents_dashboard/ui/documents_dashboard.dart';
+import 'package:uch_driver_application/features/earnings/dashboard/ui/earnings_dashboard.dart';
+import 'package:uch_driver_application/features/home/ui/home_screen.dart';
+import 'package:uch_driver_application/features/ongoing_trip/ui/ongoing_trip_screen.dart';
+import 'package:uch_driver_application/features/refer_code/ui/refer_code_screen.dart';
+import 'package:uch_driver_application/features/settings/settings_dashboard/ui/settings_dashboard.dart';
+import 'package:uch_driver_application/features/trips/trips_dashboard/ui/trips_dashboard.dart';
+import 'package:uch_driver_application/features/wallet/wallet_dashboard/ui/wallet_dashboard.dart';
+
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+  final int currentIndex =0;
+  static const navigation = <NavigationDestination>[
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Home',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Trips',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Ongoing Trip',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Earnings',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Wallet',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Documents',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Refer & Earn',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Settings',
+    ),
+
+    NavigationDestination(
+      selectedIcon: Icon(
+        Icons.home,
+        color: Colors.green,
+      ),
+      icon: Icon(
+        Icons.home_outlined,
+        color: Colors.white,
+      ),
+      label: 'Logout',
+    ),
+
+  ];
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+
+  int drawerIndex =0;
+
+  final screens = [
+    const HomeScreen(),
+    const OnGoingTripScreen(),
+    const TripsDashboardScreen(),
+    const EarningsDashboardScreen(),
+    const WalletDashboardScreen(),
+    const DocumentsDashboard(),
+    const ReferCodeScreen(),
+    const SettingsDashboardScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(DashboardScreen.navigation[widget.currentIndex].label),
+      ),
+      body: screens[drawerIndex],
+      drawer: NavigationDrawer(
+          selectedIndex: drawerIndex,
+          onDestinationSelected: (int index){
+            setState(() {
+              drawerIndex = index;
+              Navigator.of(context).pop();
+            });
+          },
+          children: const [
+            DrawerHeader(child: CircleAvatar(backgroundColor: Colors.white,)),
+
+            ListTile(
+              dense: true,
+              title: Text(
+                "Main",
+              ),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Home'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Trips'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Ongoing Trip'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Earnings'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Wallet'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Documents'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Refer & Earn'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Settings'),
+            ),
+
+            NavigationDrawerDestination(
+              selectedIcon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+              ),
+              label: Text('Logout'),
+            ),
+          ]
+      ),
+    );
+  }
+}
