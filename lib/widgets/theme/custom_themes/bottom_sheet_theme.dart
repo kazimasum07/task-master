@@ -15,8 +15,9 @@ class TMBottomSheetTheme{
    
   static BottomSheetThemeData darkBottomSheetTheme = BottomSheetThemeData(
       showDragHandle: true,
-      backgroundColor: TMCustomColors.blackColor,
-      modalBackgroundColor: TMCustomColors.blackColor,
+      dragHandleColor: TMCustomColors.blackColor,
+      backgroundColor: TMCustomColors.darkBottomSheetBackgroundColor,
+      modalBackgroundColor: TMCustomColors.darkBottomSheetBackgroundColor,
       constraints: const BoxConstraints(minWidth: double.infinity),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
   );
