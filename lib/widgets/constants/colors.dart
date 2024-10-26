@@ -11,7 +11,7 @@ class TMCustomColors{
   static  Color navbarColor = boxColor;
   static const Color blueColor =Colors.blue;
   static const Color blueAccentColor =Colors.blueAccent;
-  static const Color blackColor =CupertinoColors.activeGreen;
+  static const Color blackColor = Colors.black;
   static const Color black12Color =Colors.black12;
   static const Color greyColor =Colors.grey;
   static const Color activeGreenColor =Colors.greenAccent;
@@ -38,4 +38,8 @@ class TMCustomColors{
   //text
   static const Color headerTextColor =Color(0xFFE4E4E6);
   static const Color hintLevelTextColor =Color(0xFF8A8A8E);
+
+
+  //modal bottom sheet
+  static Color darkBottomSheetBackgroundColor =  Colors.grey.withOpacity(0.2);
 }

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/features/tasks/ui/task_screen.dart';
@@ -22,6 +23,32 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  TextEditingController projectNameController = TextEditingController();
+  TextEditingController selectedTeamController = TextEditingController();
+
+
+  final List<String> teamList = [
+    'Team 1',
+    'Team 2',
+    'Team 3',
+    'Team 4',
+    'Team 5',
+    'Team 6',
+    'Team 7',
+    'Team 8',
+    'Team 9',
+    'Team 10',
+  ];
+  String? selectedValue;
+
+  final List<String> taskStatusList = [
+    'Not Started',
+    'In Progress',
+    'Completed',
+    'Over Due'
+  ];
+  String? taskStatus;
+  String? selectedDates = "Select Timeline";
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             GestureDetector(
               onTap: (){
-                addTaskSheet(context, size);
+                addProjectWidget(context, size);
               },
               child: const CircleAvatar(
                 radius: 24,
@@ -82,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text("Projects",style: selectedIndex==4?TMCustomTextStyle.selectedNavTextStyle:TMCustomTextStyle.navTextStyle)
                 ],
               ),
-            ),GestureDetector(
+            ),
+            GestureDetector(
               onTap: (){
                 _onTap(5);
               },
@@ -108,7 +136,212 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  void addProjectWidget(BuildContext context, Size size) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_)=>StatefulBuilder(
+          builder: (BuildContext context, Function(Function()) modalSheetState) => SingleChildScrollView(
+            child: Container(
+                width: size.width*1,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Add new project"),
+                        Icon(Icons.cancel_outlined)
+                      ],
+                    ),
+                    SizedBox(height: size.height*0.02,),
+                    TextFormField(
+                      controller: projectNameController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(CupertinoIcons.briefcase),
+                        labelText: "Project Name",
+                      ),
+                    ),
 
+                    SizedBox(height: size.height*0.02,),
+                    DropdownButtonFormField2<String>(
+                      items: teamList.map((String item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item,
+                          style: const TextStyle(color: TMCustomColors.whiteColor),
+                        ),
+                      )).toList(),
+                      value: selectedValue,
+                      onChanged: (value) {
+                        modalSheetState(() {
+                          selectedValue = value!;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Assigned To',
+                        hintText: "",
+                        hintStyle:  const TextStyle(color: TMCustomColors.whiteColor),
+                        labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                        border: Theme.of(context).inputDecorationTheme.border,
+                        floatingLabelStyle: Theme.of(context).inputDecorationTheme.floatingLabelStyle,
+                        enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                        focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                        focusedErrorBorder: Theme.of(context).inputDecorationTheme.focusedErrorBorder,
+                      ),
+                      dropdownStyleData: DropdownStyleData(
+                        elevation: 1,
+                        maxHeight: size.height*0.4,
+                        width: size.width*0.82,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12),bottomRight: Radius.circular(12)),
+                        ),
+                        offset: const Offset(10, 0),
+
+                      ),
+                      menuItemStyleData:  MenuItemStyleData(
+                        height: size.height*0.064,
+                        padding: const EdgeInsets.only(left: 14, right: 14),
+                      ),
+                      validator: (value){
+                        if (value==null) {
+                          return 'Please select your gender';
+                        } else {
+                          return null;
+                        }
+                      },
+
+                    ),
+
+                    SizedBox(height: size.height*0.02,),
+                    DropdownButtonFormField2<String>(
+                      items: taskStatusList.map((String item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item,
+                          style: const TextStyle(color: TMCustomColors.whiteColor),
+                        ),
+                      )).toList(),
+                      value: taskStatus,
+                      onChanged: (value) {
+                        modalSheetState(() {
+                          taskStatus = value!;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Progress Status',
+                        hintText: "",
+                        hintStyle:  const TextStyle(color: TMCustomColors.whiteColor),
+                        labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                        border: Theme.of(context).inputDecorationTheme.border,
+                        floatingLabelStyle: Theme.of(context).inputDecorationTheme.floatingLabelStyle,
+                        enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                        focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                        focusedErrorBorder: Theme.of(context).inputDecorationTheme.focusedErrorBorder,
+                      ),
+                      dropdownStyleData: DropdownStyleData(
+                        elevation: 1,
+                        maxHeight: size.height*0.4,
+                        width: size.width*0.82,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12),bottomRight: Radius.circular(12)),
+                        ),
+                        offset: const Offset(10, 0),
+
+                      ),
+                      menuItemStyleData:  MenuItemStyleData(
+                        height: size.height*0.064,
+                        padding: const EdgeInsets.only(left: 14, right: 14),
+                      ),
+                      validator: (value){
+                        if (value==null) {
+                          return 'Please select your gender';
+                        } else {
+                          return null;
+                        }
+                      },
+
+                    ),
+
+                    SizedBox(height: size.height*0.02,),
+                    GestureDetector(
+                      onTap: ()async{
+                       var dates =  await showDateRangePicker(
+                            context: context,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100)
+                        );
+                       print("Dates :  $dates");
+                       print("Start Date:  ${dates!.start}");
+                       print("End Date:  ${dates.end}");
+
+                       modalSheetState(() {
+                         selectedDates = "${monthConverter(dates.start.month)} ${dates.start.day} - ${monthConverter(dates.end.month)} ${dates.end.day}";
+                       });
+
+                      },
+                      child: Container(
+                        width: size.width*1,
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: TMCustomColors.greyColor,width: 1)
+                        ),
+                        child: Text("$selectedDates"),
+                      ),
+                    ),
+
+                    SizedBox(height: size.height*0.032,),
+                    GestureDetector(
+                      onTap: ()async{
+
+                      },
+                      child: Container(
+                        width: size.width*1,
+                        padding: const EdgeInsets.only(top: TMSizes.md,bottom: TMSizes.md,left: TMSizes.md,right: TMSizes.md),
+                        margin: const EdgeInsets.symmetric(vertical: TMSizes.sectionGapsM),
+                        decoration: BoxDecoration(
+                            color: TMCustomColors.primaryColor,
+                            borderRadius: BorderRadius.circular(TMSizes.buttonRadius)
+                        ),
+                        child: Center(child: Text("Save",style: TMCustomTextStyle.buttonTextStyle)),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+          ),
+
+        ),
+    );
+  }
+
+  monthConverter(input){
+    if(input == 1){
+      return "Jan";
+    }else if(input == 2){
+      return "Feb";
+    }else if(input == 3){
+      return "Mar";
+    }else if(input == 4){
+      return "Apr";
+    }else if(input == 5){
+      return "May";
+    }else if(input == 6){
+      return "Jun";
+    }else if(input == 7){
+      return "Jul";
+    }else if(input == 8){
+      return "Aug";
+    }else if(input == 9){
+      return "Sep";
+    }else if(input == 10){
+      return "Oct";
+    }else if(input == 11){
+      return "Nov";
+    }else if(input == 12){
+      return "Dec";
+    }else{
+      return "N/A";
+    }
   void addTaskSheet(BuildContext context, Size size) {
     showModalBottomSheet(
       backgroundColor: TMCustomColors.bottomSheetColor,
