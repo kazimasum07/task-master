@@ -342,6 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }else{
       return "N/A";
     }
+  }
   void addTaskSheet(BuildContext context, Size size) {
     showModalBottomSheet(
       backgroundColor: TMCustomColors.bottomSheetColor,
