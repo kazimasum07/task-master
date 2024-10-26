@@ -49,31 +49,56 @@ class _TaskScreenState extends State<TaskScreen> {
         decoration: const BoxDecoration(
           color: TMCustomColors.backgroundColor
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-           SizedBox(height: TMSizes.sectionGapsM,),
-           Text("Project task"),
-           Container(
-              width: size.width*1,
-              height: size.height*0.06,
-              margin: EdgeInsets.only(top: TMSizes.spaceHeightSm),
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: tasksStatus.length,
-                separatorBuilder: (_,index)=>const SizedBox(width: TMSizes.spaceWidthSm,),
-                itemBuilder: (_,index)=>Container(
-                  padding :const EdgeInsets.symmetric(horizontal: 16,vertical: 08),
-                  decoration: BoxDecoration(
-                    color: TMCustomColors.boxColor,
-                    borderRadius: BorderRadius.circular(TMSizes.radiusSm)
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             const SizedBox(height: TMSizes.sectionGapsM,),
+             Text("Project task",style: TMCustomTextStyle.textStyle,),
+             Container(
+                width: size.width*1,
+                height: size.height*0.06,
+                margin: const EdgeInsets.only(top: TMSizes.spaceHeightSm),
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: tasksStatus.length,
+                  separatorBuilder: (_,index)=>const SizedBox(width: TMSizes.spaceWidthSm,),
+                  itemBuilder: (_,index)=>Container(
+                    padding :const EdgeInsets.symmetric(horizontal: 16,vertical: 08),
+                    decoration: BoxDecoration(
+                      color: TMCustomColors.boxColor,
+                      borderRadius: BorderRadius.circular(TMSizes.radiusSm)
+                    ),
+                    child: Center(child: Text(_getStatusText(tasksStatus[index]),style: TMCustomTextStyle.textStyle14,)),
                   ),
-                  child: Center(child: Text(_getStatusText(tasksStatus[index]))),
+          
                 ),
-
               ),
-            )
-          ],
+             const SizedBox(height: TMSizes.sectionGapsM,),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 Text("My tasks",style: TMCustomTextStyle.textStyle,),
+                 Text("See more",style: TMCustomTextStyle.textStyle14,),
+               ],
+             ),
+             Padding(
+               padding: const EdgeInsets.symmetric(vertical: TMSizes.spaceHeightSm),
+               child: ListView.separated(
+                 scrollDirection: Axis.vertical,
+                 physics: const BouncingScrollPhysics(),
+                 shrinkWrap: true,
+                 itemBuilder: (_,index)=>Container(
+                   height: 60,
+                   width: size.width*1,
+                   color: Colors.blue,
+                 ),
+                 separatorBuilder: (_,index)=>const SizedBox(height: TMSizes.spaceHeightSm,),
+                 itemCount: 100
+               ),
+             ),
+            ],
+          ),
         ),
       ),
     );
