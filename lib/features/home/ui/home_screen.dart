@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_master/features/profile/ui/profile_screen.dart';
 import 'package:task_master/features/tasks/ui/task_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
@@ -48,7 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
     'Over Due'
   ];
   String? taskStatus;
-  String? selectedDates = "Select Timeline";
+  String? selectedDates = "Select TimeDate";
+  String? selectedTimes = "Select Times";
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
         width: size.width*1,
         child:
         selectedIndex == 1?
-        const TaskScreen() : const SizedBox.shrink()
+        const TaskScreen() :
+        selectedIndex == 5?
+        const ProfileScreen() :
+        const SizedBox.shrink()
         ,
       ),
     );
