@@ -62,7 +62,7 @@ class _InProgressProjectListWidgetState extends State<InProgressProjectListWidge
                         child: LinearProgressIndicator(
                           value: taskProgressValue,
                           backgroundColor: Colors.grey[300],
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurpleAccent),
+                          valueColor: AlwaysStoppedAnimation<Color>(TMCustomColors.orangeColor),
                           minHeight: 6,
                           borderRadius: BorderRadius.circular(4),
                         ),

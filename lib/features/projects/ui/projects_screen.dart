@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_master/features/projects/all_project/ui/all_project_widget.dart';
+import 'package:task_master/features/projects/completed_projects/ui/completed_project_widget.dart';
+import 'package:task_master/features/projects/in_progress_projects/ui/in_progress_project_widget.dart';
+import 'package:task_master/features/projects/not_started_projects/ui/not_started_project_widget.dart';
+import 'package:task_master/features/projects/over_due_projects/ui/over_due_project_widget.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/enums.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
@@ -67,7 +71,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> with SingleTickerProvid
                 children: [
                   Text("18",
                     style: TextStyle(
-                        color: selectedIndex == 1 ? TMCustomColors.primaryColor : Colors.white70,
+                        color: selectedIndex == 1 ? Colors.teal : Colors.white70,
                         fontWeight: selectedIndex == 1 ? FontWeight.bold : FontWeight.normal
                     ),
                   ),
@@ -83,7 +87,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> with SingleTickerProvid
                 children: [
                   Text("0",
                     style: TextStyle(
-                        color: selectedIndex == 2 ? TMCustomColors.primaryColor : Colors.white70,
+                        color: selectedIndex == 2 ? TMCustomColors.orangeColor : Colors.white70,
                         fontWeight: selectedIndex == 2 ? FontWeight.bold : FontWeight.normal
                     ),
                   ),
@@ -99,7 +103,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> with SingleTickerProvid
                 children: [
                   Text("08",
                     style: TextStyle(
-                        color: selectedIndex == 3 ? TMCustomColors.primaryColor : Colors.white70,
+                        color: selectedIndex == 3 ? TMCustomColors.activeGreenColor : Colors.white70,
                         fontWeight: selectedIndex == 3 ? FontWeight.bold : FontWeight.normal
                     ),
                   ),
@@ -115,7 +119,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> with SingleTickerProvid
                 children: [
                   Text("50",
                     style: TextStyle(
-                        color: selectedIndex == 4 ? TMCustomColors.primaryColor : Colors.white70,
+                        color: selectedIndex == 4 ? TMCustomColors.redColor : Colors.white70,
                         fontWeight: selectedIndex == 4 ? FontWeight.bold : FontWeight.normal
                     ),
                   ),
@@ -137,10 +141,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> with SingleTickerProvid
             controller: tabController,
               children: [
                AllProjectListWidget(widthSize: widthSize,heightSize: heightSize,),
-               Text("Tab 2"),
-               Text("Tab 3"),
-               Text("Tab 4"),
-               Text("Tab 5"),
+               NotStartedProjectListWidget(widthSize: widthSize,heightSize: heightSize,),
+               InProgressProjectListWidget(widthSize: widthSize,heightSize: heightSize,),
+               CompletedProjectListWidget(widthSize: widthSize,heightSize: heightSize,),
+               OverDueProjectListWidget(widthSize: widthSize,heightSize: heightSize,)
               ],
           ),
         ),

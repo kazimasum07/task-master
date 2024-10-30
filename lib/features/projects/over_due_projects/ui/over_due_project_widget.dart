@@ -62,7 +62,7 @@ class _OverDueProjectListWidgetState extends State<OverDueProjectListWidget> {
                         child: LinearProgressIndicator(
                           value: taskProgressValue,
                           backgroundColor: Colors.grey[300],
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurpleAccent),
+                          valueColor: AlwaysStoppedAnimation<Color>(TMCustomColors.redColor),
                           minHeight: 6,
                           borderRadius: BorderRadius.circular(4),
                         ),

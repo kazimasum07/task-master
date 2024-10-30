@@ -62,7 +62,7 @@ class _CompletedProjectListWidgetState extends State<CompletedProjectListWidget>
                         child: LinearProgressIndicator(
                           value: taskProgressValue,
                           backgroundColor: Colors.grey[300],
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurpleAccent),
+                          valueColor: AlwaysStoppedAnimation<Color>(TMCustomColors.activeGreenColor),
                           minHeight: 6,
                           borderRadius: BorderRadius.circular(4),
                         ),
