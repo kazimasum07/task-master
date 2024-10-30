@@ -16,12 +16,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile",style: TextStyle(color: TMCustomColors.whiteColor,fontWeight: FontWeight.bold),),
-        actions: [
-          TextButton(
-              onPressed: (){},
-              child: const Text("Sign Out",style: TextStyle(color: TMCustomColors.redColor,fontWeight: FontWeight.bold),),
-          )
-        ],
+        
       ),
       body: Container(
         height: size.height*1,

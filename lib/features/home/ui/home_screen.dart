@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/features/profile/ui/profile_screen.dart';
+import 'package:task_master/features/projects/ui/projects_screen.dart';
 import 'package:task_master/features/tasks/ui/task_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             GestureDetector(
               onTap: (){
-
+                _onTap(4);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -134,6 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child:
         selectedIndex == 1?
         const TaskScreen() :
+        selectedIndex == 4?
+        ProjectsScreen(size: size,):
         selectedIndex == 5?
         const ProfileScreen() :
         const SizedBox.shrink()
