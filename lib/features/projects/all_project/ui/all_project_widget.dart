@@ -27,7 +27,7 @@ class _AllProjectListWidgetState extends State<AllProjectListWidget> {
             shrinkWrap: true,
             itemBuilder: (_,index)=>GestureDetector(
               onTap: (){
-
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const ProjectsDetailsScreen(taskColor: Colors.deepPurpleAccent,)));
               },
               child: Container(
                 width: widget.widthSize!*1,
