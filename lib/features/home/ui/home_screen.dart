@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_master/features/profile/ui/profile_screen.dart';
-import 'package:task_master/features/projects/ui/projects_screen.dart';
+import 'package:task_master/features/projects/projects_dashboard/projects_screen.dart';
 import 'package:task_master/features/tasks/ui/task_screen.dart';
 import 'package:task_master/widgets/constants/colors.dart';
 import 'package:task_master/widgets/constants/sizes.dart';
