@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_master/widgets/theme/custom_themes/floating_action_button_theme.dart';
 
 import 'custom_themes/appbar_theme.dart';
 import 'custom_themes/bottom_sheet_theme.dart';
@@ -26,7 +27,8 @@ class TMAppTheme{
     bottomSheetTheme: TMBottomSheetTheme.lightBottomSheetTheme,
     outlinedButtonTheme: TMOutlineButtonTheme.lightOutlineButtonTheme,
     inputDecorationTheme: TMTextFormFieldTheme.lightInputDecorationTheme,
-    chipTheme: TMChipTheme.lightChipTheme
+    chipTheme: TMChipTheme.lightChipTheme,
+    floatingActionButtonTheme: TMFloatingActionButtonTheme.lightFloatingActionButtonTheme
 
   );
   static ThemeData darkTheme = ThemeData(
@@ -42,6 +44,7 @@ class TMAppTheme{
     checkboxTheme: TMCheckboxTheme.darkCheckboxTheme,
     outlinedButtonTheme: TMOutlineButtonTheme.darkOutlineButtonTheme,
     inputDecorationTheme: TMTextFormFieldTheme.darkInputDecorationTheme,
-    chipTheme: TMChipTheme.darkChipTheme
+    chipTheme: TMChipTheme.darkChipTheme,
+    floatingActionButtonTheme: TMFloatingActionButtonTheme.darkFloatingActionButtonTheme
   );
 }
